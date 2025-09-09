@@ -39,10 +39,10 @@ const collegeSchema = new Schema<ICollege>(
     gallery: [{
       type: String,
     }],
-    admissionProcess: {
+    admissionProcess: [{
       type: String,
-      required: true,
-    },
+      
+    }],
   },
   {
     timestamps: true,

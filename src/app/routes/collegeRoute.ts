@@ -12,7 +12,7 @@ import { protect } from '../middleware/auth';
 const router = express.Router();
 
 router.route('/')
-  .post(protect, createCollegeHandler)
+  .post(createCollegeHandler)
   .get(getColleges);
 
 router.get('/featured', getFeaturedCollegesHandler);

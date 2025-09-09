@@ -1,9 +1,11 @@
 import College from '../models/College';
 import { ICollege, ICollegeInput } from '../interfaces/CollegeInterface';
 
-export const createCollege = async (collegeData: ICollegeInput): Promise<ICollege> => {
-  const college = await College.create(collegeData);
-  return college;
+export const createCollege = async (collegeData: ICollegeInput) => {
+
+  const college = await College.create(collegeData)
+  return college
+ ;
 };
 
 export const getAllColleges = async (page: number = 1, limit: number = 10, search: string = ''): Promise<{ colleges: ICollege[]; total: number; pages: number }> => {
