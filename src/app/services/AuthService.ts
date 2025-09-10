@@ -34,6 +34,53 @@ export const registerUser = async (userData: IUserInput): Promise<{ user: IUser;
   return { user, token };
 };
 
+export const registerUserWithGoogle = async (userData: IUserInput) => {
+  const { name, email, avatar } = userData;
+
+  // Check if user exists
+  const userExists = await User.findOne({ email });
+  
+  if (userExists) {
+    const token = generateToken(userExists?._id as string);
+    const user = userExists
+    return { user,token };
+  }
+
+  // Create user
+  const user = await User.create({
+    name,
+    email,
+    avatar,
+  });
+
+  const token = generateToken(user?._id as string);
+
+  return { user, token };
+};
+export const registerUserWithGithub = async (userData: IUserInput) => {
+  const { name, email, avatar } = userData;
+
+  // Check if user exists
+  const userExists = await User.findOne({ email });
+  
+  if (userExists) {
+    const token = generateToken(userExists?._id as string);
+    const user = userExists
+    return { user,token };
+  }
+
+  // Create user
+  const user = await User.create({
+    name,
+    email,
+    avatar,
+  });
+
+  const token = generateToken(user?._id as string);
+
+  return { user, token };
+};
+
 export const loginUser = async (loginData: ILoginInput): Promise<{ user: IUser; token: string }> => {
   const { email, password } = loginData;
 

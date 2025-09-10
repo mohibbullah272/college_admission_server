@@ -15,7 +15,7 @@ export interface IUser extends Document {
 export interface IUserInput {
   name: string;
   email: string;
-  password: string;
+  password?: string;
   avatar?: string;
 }
 

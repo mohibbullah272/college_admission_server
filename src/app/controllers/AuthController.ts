@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { registerUser, loginUser, updateUserProfile, getUserProfile } from '../services/AuthService';
+import { registerUser, loginUser, updateUserProfile, getUserProfile, registerUserWithGoogle, registerUserWithGithub } from '../services/AuthService';
 import { IUserInput, ILoginInput, IUpdateUserInput } from '../interfaces/UserInterface';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
@@ -8,6 +8,54 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     
     const userData: IUserInput = { name, email, password, avatar };
     const { user, token } = await registerUser(userData);
+    
+    res.status(201).json({
+      success: true,
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+      },
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+export const registerWithGoogle = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { name, email,  avatar } = req.body;
+    
+    const userData: IUserInput = { name, email,  avatar };
+    const { user, token } = await registerUserWithGoogle(userData);
+    
+    res.status(201).json({
+      success: true,
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+      },
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+export const registerWithGithub = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { name, email,  avatar } = req.body;
+    
+    const userData: IUserInput = { name, email,  avatar };
+    const { user, token } = await registerUserWithGithub(userData);
     
     res.status(201).json({
       success: true,

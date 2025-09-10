@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { register, login, getProfile, updateProfile } from '../controllers/AuthController';
+import { register, login, getProfile, updateProfile, registerWithGoogle, registerWithGithub } from '../controllers/AuthController';
 import { protect } from '../middleware/auth';
 import { handleValidationErrors } from '../middleware/validation';
 
@@ -15,6 +15,16 @@ router.post(
   ],
   handleValidationErrors,
   register
+);
+router.post(
+  '/register-with-google',
+
+  registerWithGoogle
+);
+router.post(
+  '/register-with-github',
+
+ registerWithGithub
 );
 
 router.post(
